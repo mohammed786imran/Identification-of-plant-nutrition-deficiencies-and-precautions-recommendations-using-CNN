@@ -1,0 +1,212 @@
+from flask import Flask,
+request,flash,render template,send from directory,redirect,url for
+from tensorflow, keras .preprocessing import image
+
+import os
+
+from tensorflow.keras.models import load model
+
+import numpy as np
+
+import mysql.connector
+import pandas as pd
+
+import cv2
+
+import matplotlib
+matplotlib.use('Agg')
+
+from matplotlib import pyplot as pit
+import shutil
+
+app=Flask(_name_)
+app.secret key='"r
+
+Plants = ['
+Sium Defi
+
+mydb =
+host
+
+passwd="".
+database="plants"
+
+)
+
+mycursor = mydb.curser()
+
+@Gapp.route('/')
+def index():
+return render template ("index.html")
+
+@app. route ('/reg')
+def req():
+return render template ("r
+
+html")
+
+@app. route ('/regback',methods = ["POST"])
+def regback() :
+if request .method=="POST':
+name=request.. form[' nar
+email=request .form['
+bwd=request .form(€'pwd']
+c wd=request .form[ rd
+addr=request..form[
+
+sql = "select * from ureg"
+result = pd. read. sql query(sql, mydb)
+emaill = result['email'lL.values
+print (emaill)
+if email in emaill:
+flash("email already existed", "success")
+
+return render template (‘index.htm1')
+if (pwd = cpwa) :
+= "INSERT INTO ureg (name,email,pwd, addr) VALUES
+BES Ree a hd,
+
+= (mame, email, pwd, addr)
+
+mycursor.execute (sgl » wal)
+mydb .- commit ()
+
+25
+
+database="plants"
+)
+
+mycursor = mydb.cursor()
+
+if aes "POST":
+
+result con need st anentoch. myah)
+emaill = result [‘email') values
+print (emaill)
+if email in emaill:
+
+Dlash{"email already
+
+FALUES
+yah = (name, email, pysl, added
+y ott aah, val)
+aydh. COMME,
+Dash("Successfully Registered", “warning”
+return Fendes baMmblera('index.heml")
+else:
+Diash("Password and Confirm Password not same”)
+
+return yender template ('index.html')
+
+Gapp.toune("/login')
+def login():
+return render temmleba ("lo
+
+@app.route("/logback",methods=["POST', "GET"])
+def logrechh) :
+if pequeshmetoed —= “Post™:
+email = pequest.Agem@['email']
+
+password! = request. taxol out’)
+
+print('p")
+= “select * from yneg, where email="$s' and pyyj='ts' " & (email,
+
+password)
+
+print('a')
+
+X = WYSHESORARMECURA (SAL)
+
+print (x)
+
+results = pysursorfetchalh()
+
+print (results)
+
+global name
+if len(results) > 0:
+
+flash ("\
+
+return render template('userhome.html', msg=results[0] [1])
+else:
+
+Diash{"Invalid Credentials .
+return sender. cemplese(° 2nd
+
+return render templare ("index.html")
+Gapp.roure (' /userhome')
+
+", Filename)
+
+¢app.roure ("/upload!
+def uploadl():
+print ('a')
+if
+
+neweRede), = scat. modelt’ models/ANN.h5")
+Feskimege = dmage.doading(mupeth, barsetuaige= (128, 128))
+SEA AMAGR = dnAge. dno. toankay (Sear. image)
+
+(
+= accationim - 1, 1]
+
+slit n =
+print ("bv2")
+peymeds) = laad.model('medels/CNN.h5")
+FoR ADAGR = TAME LOAAMO(DURARD, bangetahze= (128, 128))
+SERLALDRGR = U(SEARALDAIRD
+a= agcaitegim - 1, 1]
+else:
+
+print ("bv3")
+= Jgad.model( "models /DenseNet12
+spar had ina (BURREB. SasREE Re (128, 128))
+GEaLAABAGR: (seak.dBAaR)
+
+a= accailoecim - 1, 1]
+
+27
+
+kesh images = np. expand dims (test image, axis=0)
+result = new_model. predict (test, image)
+preds = Plants[np.argmax(result)]
+
+if preds == ‘Calcium deficiency':
+msg = "Adding lime to t soil in autumn is the easiest answe
+how to raise calcium in the soil. Eggshells in your compost will also add
+calcium to soil. Some gardeners plant eggshells along with their tomato
+
+seedlings to add calcium soil and prevent blossom end rot."
+elif preds = "Complete nutrition’: :
+msg = "Plant C
+
+elif preds "Iron
+msg = "An effe as of supplying iron deficient plants with
+suppleme ental iron is by spraying , ferti lizer on the plant leaves. An
+i and commonly used material this purpose is ferrous
+). Mix 1 to 2 oz of ferrous in 1 gallon of wate
+elif, preds == ‘Magnesium Deficiencies':
+msg = 'One way to treat magnesium deficiency in a plant is to
+spray the le aves of the a with a solution containing magnesium, such as
+is to mix compost, Epsom salt,
+» the soil.'
+
+or another magnesium source directly
+elif preds = ‘Nit rogen Defic cy
+msg = place nitrogen in the soil by applying a balanced feed
+in spring to raise general nutrient levels. Liquid plant foods are fast-
+ing, so a good choice if nitrogen deficiency is noticed. Mulching the soil
+will help maintain soil moisture levels, reduce leaching.'
+else:
+msg = 'spread organic mulch beneath plants and apply potassium
+fertilizer, prefer y slow-release forms such as potassium sili
+sulfur- or polymer vated potassium products. Potassium sulfate may be used,
+and potassium will be held by organic matter and clay particles."
+return render template("template-html", text=preds, msg=msq,
+
+image name=fn, a=round(a * 100, 3))
+
+if _name_=="_main_':
+app.run(debug=True)
