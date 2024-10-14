@@ -7,3 +7,5 @@ It is based on the machine learning project
 - Using CNN and ANN machine learning models for comparison of both accuracy rate.
 - Accurate Classification,Less Complexity,High Performance,Easy Identification.
 - Flask,MySQL,HTML,CSS,JavaScript,Machine Learning Models(Python),Pycharm IDE.
+- Libraries : keras,panda,numpy,matplotlib,tensor flow. 
+
